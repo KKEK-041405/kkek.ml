@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1098048921319",
+    "project_id": "kkek-ef277",
+    "storage_bucket": "kkek-ef277.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098048921319:android:22189895a59650ce978c42",
+        "android_client_info": {
+          "package_name": "com.example.kkek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098048921319-8qie5ttva56ujgv6d9jsmenfm23jsofq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDstO8YnNyJyTHZ38NRW01yILK4pdTquXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098048921319-8qie5ttva56ujgv6d9jsmenfm23jsofq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1098048921319-iq7jadpm0otft9ejgp64kp3tlhh26d3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kkek.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
