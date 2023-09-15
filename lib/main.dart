@@ -1,30 +1,68 @@
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kkek/app_state.dart';
+import 'package:kkek/firebase_options.dart';
+import 'package:kkek/logout_view.dart';
 import 'package:kkek/main1.dart';
+import 'package:go_router/go_router.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'logged_in_view.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  if (kDebugMode) {
+    try {
+      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8081);
+      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
+  final state = AppState();
+  MyApp({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'KKEK',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyPage(
-        title: "KKEK",
-        color: Colors.green,
-        icon: Icon(Icons.abc),
-      ),
+      routerConfig: _router(),
+    );
+  }
+
+  GoRouter _router() {
+    return GoRouter(
+      redirect: (context, routerState) => state.user == null ? '/login' : null,
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, routerState) => LoggedInView(state: state),
+        ),
+        GoRoute(
+          path: '/login',
+          builder: (context, routerState) => LoggedOutView(state: state),
+        ),
+      ],
     );
   }
 }
