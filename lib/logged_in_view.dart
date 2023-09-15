@@ -53,12 +53,8 @@ class _LoggedInViewState extends State<LoggedInView> {
               TextButton(
                   autofocus: true,
                   onPressed: () => setState(() {
-                        widget.state
-                            .writetodatabase(
-                                docnamecontorller.text,
-                                feildnamecontorller.text,
-                                datanamecontorller.text)
-                            .then();
+                        widget.state.writetodatabase(
+                            feildnamecontorller.text, datanamecontorller.text);
                       }),
                   child: const Text("ADD to database")),
               Text(datanamecontorller.text),

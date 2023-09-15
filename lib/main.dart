@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kkek/HomePage.dart';
 import 'package:kkek/app_state.dart';
 import 'package:kkek/firebase_options.dart';
 import 'package:kkek/logout_view.dart';
@@ -25,7 +26,6 @@ void main() async {
       await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     } catch (e) {
       // ignore: avoid_print
-      print(e);
     }
   }
 
@@ -40,13 +40,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'KKEK',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: _router(),
+      home: const HomePage(
+        title: Text("KKEK"),
+      ),
+      // routerConfig: _router(),
     );
   }
 
