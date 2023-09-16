@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kkek/app_state.dart';
 
 class ReadPage extends StatefulWidget {
-  const ReadPage({super.key, required this.title});
+  ReadPage({super.key, required this.title});
   final Text title;
 
   @override
@@ -14,7 +15,19 @@ class _ReadPageState extends State<ReadPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: widget.title),
-      body: const Text("This is Read Page"),
+      body: Center(
+          child: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              AppState().readfromdb();
+            },
+            child: const Text("Read"),
+          ),
+          const Text("This is Read Page"),
+          Text(AppState().data.toString()),
+        ],
+      )),
     );
   }
 }

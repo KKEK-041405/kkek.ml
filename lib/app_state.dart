@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 class AppState {
   User? user;
   late Error error;
-  late Map<String, dynamic> data;
+  late Map<String, String> data = {"HELLO": "HELLO"};
   logIn(String email, String password) async {
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
@@ -20,9 +20,9 @@ class AppState {
     }
   }
 
-  void readfromdb() {
+  readfromdb() {
     FirebaseFirestore.instance.collection("KKEK").doc("Code").get().then(
-          (DocumentSnapshot doc) => {data = doc.data() as Map<String, dynamic>},
+          (DocumentSnapshot doc) => {data = doc.data() as Map<String, String>},
         );
   }
 
