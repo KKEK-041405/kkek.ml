@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
 class AppState {
+  String? val;
   User? user;
-  late Error error;
-  late Map<String, String> data = {"HELLO": "HELLO"};
+  Error? error;
+  String data = "{'HELLO': 'HELLO'}";
+
+  //login function
   logIn(String email, String password) async {
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
@@ -20,13 +24,27 @@ class AppState {
     }
   }
 
-  readfromdb() {
-    FirebaseFirestore.instance.collection("KKEK").doc("Code").get().then(
-          (DocumentSnapshot doc) => {data = doc.data() as Map<String, String>},
-        );
+  //fun to read data from db
+  readfromdb() async {
+    final docs =
+        await FirebaseFirestore.instance.collection("KKEK").doc("Code").get();
+    if (docs.data() != null) {
+      val = docs.data().toString();
+    }
+    // print("string vas $val");
   }
 
-  writetodatabase(String fieldid, String data) {
+  // final docsref = FirebaseFirestore.instance
+  //     .collection("KKEK")
+  //     .doc("Code")
+  //     .snapshots()
+  //     .listen((event) {
+  //   val = event.data().toString();
+  //   print("event data = ${event.data()}");
+  // });
+
+  //fun to write in db
+  writetodatabase(String fieldid, String data) async {
     FirebaseFirestore.instance
         .collection("KKEK")
         .doc("Code")

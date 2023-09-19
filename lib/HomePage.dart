@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kkek/app_state.dart';
 import 'package:kkek/logged_in_view.dart';
 import 'package:kkek/logout_view.dart';
 
@@ -7,7 +10,8 @@ import 'write_page.dart';
 
 class HomePage extends StatelessWidget {
   final Text title;
-  const HomePage({super.key, required this.title});
+  final AppState state;
+  const HomePage({super.key, required this.title, required this.state});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +34,11 @@ class HomePage extends StatelessWidget {
                 child: const Text("WritePage"),
               ),
               ElevatedButton(
-                onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ReadPage(
-                                title: title,
-                              )))
-                },
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ReadPage(title: title, state: state))),
                 child: const Text("ReadPage"),
               ),
             ],
