@@ -19,23 +19,7 @@ class _ReadPageState extends State<ReadPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: widget.title),
-      body: Center(
-          child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              await widget.state.readfromdb();
-              setState(() {
-                text = "reading completed";
-              });
-            },
-            child: const Text("Read"),
-          ),
-          Text(widget.state.val.toString()),
-          Text(text),
-          Container(color: Colors.amber, child: const DataBlock()),
-        ],
-      )),
+      body: const DataBlock(),
     );
   }
 }
