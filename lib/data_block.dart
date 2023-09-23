@@ -3,20 +3,23 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kkek/app_state.dart';
 
 class DataBlock extends StatefulWidget {
-  const DataBlock({super.key});
+  final String? doc;
+  final AppState state;
+  const DataBlock({super.key, required this.doc, required this.state});
 
   @override
   State<DataBlock> createState() => _DataBlockState();
 }
 
 class _DataBlockState extends State<DataBlock> {
-  final Stream<DocumentSnapshot<Map<String, dynamic>>> _stream =
-      FirebaseFirestore.instance.collection("KKEK").doc("Code").snapshots();
+  final _collection = FirebaseFirestore.instance.collection("KKEK");
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    var _stream = _collection.doc(widget.doc).snapshots();
     return StreamBuilder<DocumentSnapshot>(
         stream: _stream,
         builder:
@@ -36,11 +39,14 @@ class _DataBlockState extends State<DataBlock> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(data[key].toString())));
           }
-
           return ListView.builder(
+              controller: widget.state.scrollcontroller,
               itemCount: keys.length,
               itemBuilder: (BuildContext context, index) {
                 String key = keys[index];
+                if (widget.doc == "ChatX") {
+                  key = index.toString();
+                }
                 return ListTile(
                   trailing: Text(key),
                   title: Text(

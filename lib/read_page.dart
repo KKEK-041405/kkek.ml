@@ -19,7 +19,10 @@ class _ReadPageState extends State<ReadPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: widget.title),
-      body: const DataBlock(),
+      body: DataBlock(
+        doc: "Code",
+        state: widget.state,
+      ),
     );
   }
 }

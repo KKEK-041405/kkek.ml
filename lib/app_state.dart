@@ -4,17 +4,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class AppState {
   String? val;
   User? user;
   Error? error;
   String data = "{'HELLO': 'HELLO'}";
+  final ScrollController scrollcontroller = ScrollController();
 
   //login function
   logIn(String email, String password) async {
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+    // .then((value) => print(value));
     if (credential.user != null) {
       user = credential.user!;
     } else {
@@ -45,9 +49,26 @@ class AppState {
 
   //fun to write in db
   writetodatabase(String fieldid, String data) async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("KKEK")
-        .doc("Code")
+        .doc("ChatX")
         .update(<String, String?>{fieldid: data});
+  }
+
+  sendmessage(String text) async {
+    var doc = FirebaseFirestore.instance.collection("KKEK").doc("ChatX");
+    print("doc getted");
+
+    var num = ((await doc.get()).data() as Map<String, dynamic>).length;
+    print("numgetted");
+    await doc.update(<String, dynamic>{num.toString(): text.toString()});
+  }
+
+  scrollToBottom() async {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      scrollcontroller.animateTo(scrollcontroller.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 1),
+          curve: Curves.fastOutSlowIn);
+    });
   }
 }
