@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,8 +13,10 @@ class AppState {
 
   //login function
   logIn(String email, String password) async {
-    final credential = await FirebaseAuth.instance
+    var credential;
+    try { credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+    }on FirebaseAuthException()
     // .then((value) => print(value));
     if (credential.user != null) {
       user = credential.user!;
