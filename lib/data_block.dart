@@ -39,7 +39,7 @@ class _DataBlockState extends State<DataBlock> {
           return ListView.builder(
               controller: widget.state.scrollcontroller,
               itemCount: keys.length,
-              itemBuilder: (BuildContext context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 String key = keys[index];
                 if (widget.doc == "ChatX") {
                   key = index.toString();

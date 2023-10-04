@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:kkek/login_page.dart';
 
 class AppState {
   String? val;
@@ -13,10 +14,9 @@ class AppState {
 
   //login function
   logIn(String email, String password) async {
-    var credential;
-    try { credential = await FirebaseAuth.instance
+    final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
-    }on FirebaseAuthException()
+
     // .then((value) => print(value));
     if (credential.user != null) {
       user = credential.user!;
