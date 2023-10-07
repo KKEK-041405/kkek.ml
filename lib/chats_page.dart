@@ -4,21 +4,26 @@ import 'package:kkek/app_state.dart';
 import 'package:kkek/data_block.dart';
 import 'package:kkek/login_page.dart';
 
-class ChatsPage extends StatelessWidget {
+class ChatsPage extends StatefulWidget {
   final AppState state;
   final Text title;
-
-  const ChatsPage({
+  ChatsPage({
     super.key,
     required this.title,
     required this.state,
   });
 
   @override
+  State<ChatsPage> createState() => _ChatsPageState();
+}
+
+class _ChatsPageState extends State<ChatsPage> {
+  String chat = "";
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: title),
+      appBar: AppBar(title: widget.title),
       body: content(),
     );
   }
@@ -28,19 +33,21 @@ class ChatsPage extends StatelessWidget {
       return Row(
         children: [
           Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                 decoration: BoxDecoration(border: Border.all()),
                 child: ListofChats(),
               )),
           Expanded(
-              flex: 7,
+              flex: 8,
               child: Column(
                 children: [
                   Expanded(
                       flex: 9,
                       child: Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(border: Border.all()),
+                        child: Expanded(flex: 1, child: ShowChats()),
                       )),
                   Expanded(
                     flex: 1,
@@ -54,26 +61,55 @@ class ChatsPage extends StatelessWidget {
       );
     }
 
-    if (state.user == null) {
-      return LoginForm(title: title, state: state);
+    if (widget.state.user == null) {
+      return LoginForm(title: widget.title, state: widget.state);
     }
 
-    if (state.user != null) {
-      return Column(
+    if (widget.state.user != null) {
+      return Row(
         children: [
           Expanded(
-            flex: 9,
-            child: DataBlock(
-              doc: "ChatX",
-              state: state,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: inputBox(),
-          ),
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(border: Border.all()),
+                child: ListofChats(),
+              )),
+          // Expanded(
+          //     flex: 8,
+          //     child: Column(
+          //       children: [
+          //         Expanded(
+          //             flex: 9,
+          //             child: Container(
+          //               width: double.infinity,
+          //               decoration: BoxDecoration(border: Border.all()),
+          //               child: Expanded(flex: 1, child: ShowChats()),
+          //             )),
+          //         Expanded(
+          //           flex: 1,
+          //           child: Container(
+          //             decoration: BoxDecoration(border: Border.all()),
+          //           ),
+          //         ),
+          //       ],
+          //     )),
         ],
       );
+      // Column(
+      //   children: [
+      //     Expanded(
+      //       flex: 9,
+      //       child: DataBlock(
+      //         doc: "ChatX",
+      //         state: widget.state,
+      //       ),
+      //     ),
+      //     Expanded(
+      //       flex: 1,
+      //       child: inputBox(),
+      //     ),
+      //   ],
+      // );
     }
     return const Placeholder();
   }
@@ -92,9 +128,9 @@ class ChatsPage extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   if (message.text != "") {
-                    state.sendmessage(message.text.toString());
+                    widget.state.sendmessage(message.text.toString());
                     message.text = "";
-                    state.scrollToBottom();
+                    widget.state.scrollToBottom();
                   }
                 },
                 child: const Icon(Icons.send)),
@@ -105,49 +141,59 @@ class ChatsPage extends StatelessWidget {
   }
 
   Widget ListofChats() {
-    List elements = [
-      "sdfsfsfs",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-    ];
+    Map<String, dynamic> elements;
+    elements = {
+      "1": "a",
+      "2": "b",
+      "3": "c",
+      "4": "d",
+      "5": "e",
+      "6": "f",
+    };
+    List keys = (elements.keys.toList());
+    keys.sort();
+    if (!kDebugMode) {
+      widget.state.getChats();
+      elements = widget.state.chats!;
+      keys = widget.state.chats!.keys.toList();
+      keys.sort();
+    }
+    print(elements);
     return ListView.builder(
         itemCount: elements.length,
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(border: Border.all()),
-            child: Text(elements[index]),
+          return ListTile(
+            onTap: () {
+              setState(() {
+                chat = elements[keys[index]];
+              });
+              if (kDebugMode) {}
+            },
+            title: Container(
+              decoration: BoxDecoration(border: Border.all()),
+              child: Text(elements[index]),
+            ),
           );
         });
+  }
+
+  Widget ShowChats() {
+    return Column(
+      children: [
+        Expanded(
+            flex: 1,
+            child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(border: Border.all()),
+                child: Center(child: Text(chat)))),
+        Expanded(
+          flex: 14,
+          child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(border: Border.all()),
+              child: Text("sdkfjl")),
+        ),
+      ],
+    );
   }
 }

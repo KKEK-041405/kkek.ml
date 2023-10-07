@@ -19,9 +19,17 @@ class LoginForm extends StatelessWidget {
         const Text("THis is login Page"),
         const SizedBox(height: 8.0),
         ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               if (!kDebugMode) {
-                state.logIn("komaleshwarakumarkonatham@gmail.com", "K0m@1.com");
+                await state
+                    .logIn("komaleshwarakumarkonatham@gmail.com", "K0m@1.com")
+                    .then((_) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChatsPage(title: title, state: state)));
+                });
               }
             },
             child: const Text("Login"))
