@@ -10,10 +10,7 @@ class AppState {
   User? user;
   Error? error;
   String data = "{'HELLO': 'HELLO'}";
-  Map<String, dynamic>? chats;
   final ScrollController scrollcontroller = ScrollController();
-
-  String chat = "";
 
   //login function
   logIn(String email, String password) async {
@@ -37,6 +34,7 @@ class AppState {
     if (docs.data() != null) {
       val = docs.data().toString();
     }
+    // print("string vas $val");
   }
 
   // final docsref = FirebaseFirestore.instance
@@ -71,15 +69,5 @@ class AppState {
           duration: const Duration(milliseconds: 1),
           curve: Curves.fastOutSlowIn);
     });
-  }
-
-  void getChats() async {
-    final chats = await FirebaseFirestore.instance
-        .collection("KKEK")
-        .doc("ChatX")
-        .collection((user?.email).toString())
-        .doc("Chats")
-        .get();
-    this.chats = chats.data();
   }
 }
