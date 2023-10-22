@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kkek/app_state.dart';
 import 'package:kkek/data_block.dart';
@@ -24,36 +23,6 @@ class ChatsPage extends StatelessWidget {
   }
 
   Widget content() {
-    if (kDebugMode) {
-      return Row(
-        children: [
-          Expanded(
-              flex: 3,
-              child: Container(
-                decoration: BoxDecoration(border: Border.all()),
-                child: ListofChats(),
-              )),
-          Expanded(
-              flex: 7,
-              child: Column(
-                children: [
-                  Expanded(
-                      flex: 9,
-                      child: Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                      )),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      decoration: BoxDecoration(border: Border.all()),
-                    ),
-                  ),
-                ],
-              )),
-        ],
-      );
-    }
-
     if (state.user == null) {
       return LoginForm(title: title, state: state);
     }
@@ -102,52 +71,5 @@ class ChatsPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget ListofChats() {
-    List elements = [
-      "sdfsfsfs",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-      "KKEK",
-    ];
-    return ListView.builder(
-        itemCount: elements.length,
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(border: Border.all()),
-            child: Text(elements[index]),
-          );
-        });
   }
 }

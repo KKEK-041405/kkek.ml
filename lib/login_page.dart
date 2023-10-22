@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,11 +18,30 @@ class LoginForm extends StatelessWidget {
         const Text("THis is login Page"),
         const SizedBox(height: 8.0),
         ElevatedButton(
-            onPressed: () {
-              if (!kDebugMode) {
-                state.logIn("komaleshwarakumarkonatham@gmail.com", "K0m@1.com");
-              }
-            },
+            onPressed: () => {
+                  print(""),
+
+                  // try {
+
+                  //     await state
+                  //         .logIn("komaleshwarakumarkonatham@gmail.com", "K0m@1.com")
+                  //         .then((_) {
+                  //       if (state.user != null) {
+                  //         if (kDebugMode) {
+                  //           print(state.user);
+                  //         }
+                  //         Navigator.pushReplacement(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) =>
+                  //                     ChatsPage(title: title, state: state)));
+                  //       }
+                  //     });
+                  // }
+                  // catch{
+
+                  // }
+                },
             child: const Text("Login"))
       ],
     ));
